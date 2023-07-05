@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="inline-size: max-content"
+      >Edit Profile or Add amount
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>Edit your Account</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input [(ngModel)]="userModel.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="userModel.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input [(ngModel)]="userModel.phone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input [(ngModel)]="userModel.password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input [(ngModel)]="userModel.confirmPassword"></ion-input>
+        </ion-item>
+      </div>
+    </ion-accordion>
+
+    <ion-accordion value="forth">
+      <ion-item slot="header" color="light">
+        <ion-label>Add Balance</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item>
+
+
+          
+          <ion-label position="stacked"
+            >Add Cash ( Enter Amount in Rs. )</ion-label
+          >
+          <ion-input [(ngModel)]="userModel.cash"></ion-input>
+        </ion-item>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>
+<ion-footer>
+  <ion-button (click)="updateUserModel(userModel)" expand="block"
+    >Update</ion-button
+  >
+</ion-footer>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>receiver</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="form">
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Cash in Rs.</ion-label>
+      <ion-input [(ngModel)]="cash"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sender Name</ion-label>
+      <ion-input [(ngModel)]="receiverName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Sender Email</ion-label>
+      <ion-input [(ngModel)]="receiverEmail"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Phone number</ion-label>
+      <ion-input [(ngModel)]="receiverPhone"></ion-input>
+    </ion-item>
+    <ion-button style="width: 100%" (click)="send()"
+      >Received</ion-button
+    >
+  </div>
+</ion-content>

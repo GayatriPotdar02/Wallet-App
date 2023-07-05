@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-pading">
+  <div class="form">
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Phone</ion-label>
+      <ion-input [(ngModel)]="phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Add Cash ( Enter Amount in Rs. )</ion-label>
+      <ion-input [(ngModel)]="cash"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Confirm Password</ion-label>
+      <ion-input [(ngModel)]="confirmPassword"></ion-input>
+    </ion-item>
+    <ion-button (click)="signup()" expand="block">Signup</ion-button>
+  </div>
+</ion-content>

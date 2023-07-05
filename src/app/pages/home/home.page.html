@@ -1,0 +1,302 @@
+<ion-content>
+  <ion-header class="ion-no-border">
+    <ion-item lines="none">
+      <ion-button
+        (click)="presentAlert()"
+        fill="clear"
+        slot="start"
+        color="light"
+      >
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+      <ion-avatar (click)="presentLogoAlert()" slot="end">
+        <img src="assets/icons/4.png" />
+      </ion-avatar>
+    </ion-item>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" color="light">
+    <div class="main-header"></div>
+
+    <ion-grid *ngIf="userData">
+      <ion-row style="margin-top: -30px">
+        <ion-col size="6">
+          <ion-label>
+            <ion-note
+              style="font-weight: bold; font-size: 14px"
+              color="light"
+              class="ion-margin-start"
+            >
+              CARD BALANCE
+            </ion-note>
+            <p>
+              <ion-chip color="light">
+                <ion-label class="ion-text-wrap">
+                  ₹{{userData.cash}}
+                </ion-label>
+              </ion-chip>
+            </p>
+          </ion-label>
+        </ion-col>
+        <ion-col size="6" class="ion-text-end">
+          <ion-button
+            (click)="editCash(userData.uid)"
+            color="light"
+            size="small"
+          >
+            <ion-text color="primary">Top Up</ion-text>
+            <ion-icon name="add" color="primary" slot="end"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row
+        style="margin-top: 5px"
+        class="ion-margin-horizontal ion-margin-top"
+      >
+        <ion-col>
+          <ion-label color="light">
+            <b>All features</b>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-horizontal">
+        <ion-accordion-group style="width: 92%">
+          <ion-accordion *ngIf="userData" value="third">
+            <ion-item slot="header" color="light">
+              <ion-label>Account Details</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-card *ngIf="userData" color="tertiary ">
+                <ion-card-header>
+                  <ion-card-title>Account Holder Details</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label>Name - {{userData.name}} </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Email - {{userData.email}} </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Phone - {{userData.phone}} </ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Balance - Rs.{{userData.cash}} </ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-accordion>
+          <ion-accordion *ngIf="userData" value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>Send Money</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Receiver Details</ion-card-title>
+                </ion-card-header>
+                <div class="form">
+                  <ion-item>
+                    <ion-label position="stacked">Name</ion-label>
+                    <ion-input [(ngModel)]="name"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Email</ion-label>
+                    <ion-input [(ngModel)]="email"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Cash in Rs.</ion-label>
+                    <ion-input [(ngModel)]="cash"></ion-input>
+                  </ion-item>
+
+                  <ion-button style="width: 100%" (click)="send()"
+                    >Send</ion-button
+                  >
+                </div>
+              </ion-card>
+            </div>
+          </ion-accordion>
+
+
+          <ion-accordion *ngIf="userData" value="seventh">
+            <ion-item slot="header" color="light" routerLink="/receiver">
+              <ion-label>Receive Money</ion-label>
+            </ion-item>
+           
+          </ion-accordion>
+          <ion-accordion *ngIf="!userData" value="sixth">
+            <ion-item slot="header" color="light">
+              <ion-label routerLink="/login">Login</ion-label>
+            </ion-item>
+          </ion-accordion>
+          <ion-accordion *ngIf="!userData" value="register">
+            <ion-item slot="header" color="light">
+              <ion-label routerLink="/register">Register</ion-label>
+            </ion-item>
+          </ion-accordion>
+          <ion-accordion *ngIf="userData" value="fourth">
+            <ion-item slot="header" color="light">
+              <ion-label (click)="logOut()">Log Out</ion-label>
+            </ion-item>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-row>
+
+      <ion-list style="margin-top: 75px">
+        <ion-list-header>
+          <ion-label> SENDING TRANSACTIONS</ion-label>
+        </ion-list-header>
+        <ion-item lines="none" *ngFor="let item of transactionHistory">
+          <ion-icon slot="start" name="cash" color="primary"></ion-icon>
+          <ion-label size="large" class="ion-text-wrap">
+            <b>Paid to {{item.name}}</b>
+            <p>{{item.currentDate}}</p>
+          </ion-label>
+          <ion-text slot="end" color="success">₹{{item.cash}}</ion-text>
+        </ion-item>
+      </ion-list>
+      <ion-list style="margin-top: 20px">
+        <ion-list-header>
+          <ion-label> RECEIVED TRANSACTIONS</ion-label>
+        </ion-list-header>
+        <ion-item lines="none" *ngFor="let item of receiverTransactionHistory">
+          <ion-icon slot="start" name="cash" color="primary"></ion-icon>
+          <ion-label size="large" class="ion-text-wrap">
+            <b>Received from {{item.receiverName}}</b>
+            <p>{{item.currentDate}}</p>
+          </ion-label>
+          <ion-text slot="end" color="success">₹{{item.cash}}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+  </ion-content>
+
+  <!-- <ion-card style="text-align: center" *ngIf="userData">
+      <ion-card-header>
+        <ion-card-title>Total Balance</ion-card-title>
+        <h4>Rs.{{userData.cash}}</h4>
+      </ion-card-header>
+      <ion-button
+        color="tertiary"
+        (click)="editCash(userData.uid)"
+        style="padding-left: 15px; padding-bottom: 10px; font-weight: bold"
+        shape="round"
+      >
+        Edit Profile or Deposit Amount
+      </ion-button>
+    </ion-card>
+    <ion-accordion-group>
+      <ion-accordion *ngIf="userData" value="third">
+        <ion-item slot="header" color="light">
+          <ion-label>Account Details</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-card *ngIf="userData" color="tertiary ">
+            <ion-card-header>
+              <ion-card-title>Account Holder Details</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Name - {{userData.name}} </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Email - {{userData.email}} </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Phone - {{userData.phone}} </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Balance - Rs.{{userData.cash}} </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-accordion>
+      <ion-accordion *ngIf="userData" value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Send Money</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Receiver Details</ion-card-title>
+            </ion-card-header>
+            <div class="form">
+              <ion-item>
+                <ion-label position="stacked">Name</ion-label>
+                <ion-input [(ngModel)]="name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input [(ngModel)]="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Cash in Rs.</ion-label>
+                <ion-input [(ngModel)]="cash"></ion-input>
+              </ion-item>
+
+              <ion-button style="width: 100%" (click)="send()">Send</ion-button>
+            </div>
+          </ion-card>
+        </div>
+      </ion-accordion>
+
+      <ion-accordion *ngIf="userData" value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Your Transactions</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-card *ngIf="userData" color="tertiary ">
+            <ion-card-header>
+              <ion-card-title>Your Transaction History</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list *ngFor="let item of transactionHistory">
+                <div *ngIf="userData.email === item.senderEmail">
+                  <ion-item detail="true">
+                    <ion-label style="text-wrap: inherit">
+                      <h3>
+                        Rs.{{item.cash}} paid to {{item.name}} by
+                        {{item.senderName}}
+                      </h3>
+                      <p>{{item.currentDate}}</p>
+                    </ion-label>
+
+                    <ion-avatar slot="end">
+                      <ion-icon
+                        (click)="deleteTransaction(item.id)"
+                        style="height: 20px; width: 20px"
+                        name="trash-outline"
+                      ></ion-icon>
+                    </ion-avatar>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-accordion>
+      <ion-accordion *ngIf="!userData" value="sixth">
+        <ion-item slot="header" color="light">
+          <ion-label routerLink="/login">Login</ion-label>
+        </ion-item>
+      </ion-accordion>
+      <ion-accordion *ngIf="!userData" value="register">
+        <ion-item slot="header" color="light">
+          <ion-label routerLink="/register">Register</ion-label>
+        </ion-item>
+      </ion-accordion>
+      <ion-accordion *ngIf="userData" value="fourth">
+        <ion-item slot="header" color="light">
+          <ion-label (click)="logOut()">Log Out</ion-label>
+        </ion-item>
+      </ion-accordion>
+    </ion-accordion-group> -->
+</ion-content>
